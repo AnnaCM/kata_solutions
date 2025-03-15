@@ -1,0 +1,13 @@
+{
+  "name": "php/kata-solutions",
+  "description": "PHP Kata solutions",
+  "minimum-stability": "dev",
+  "require-dev": {
+    "phpunit/phpunit": "9.6.22"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kata\\": "src/"
+    }
+  }
+}
