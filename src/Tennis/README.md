@@ -1,7 +1,7 @@
 ### Tennis
 The goal of this kata is to report the score for the current game.
 
-In tennis, a game is won by the first player to score four points, with the points being called out as 15, 30, 40, and then "game". A tied score at 40-40 is called "deuce," and the first player to win two consecutive points after deuce wins the game. 
+In tennis, a game is won by the first player to score four points, with the points being called out as 15, 30, 40, and then "game". A tied score is called "all"; for example, if each player has won a single point (i.e. 15), the server will call the score 15-all. A tied score at 40-40 is called "deuce", and the first player to win two consecutive points after deuce wins the game.
 
 #### Points
 - 0 points: "Love"
@@ -9,9 +9,6 @@ In tennis, a game is won by the first player to score four points, with the poin
 - 2 points: "Thirty"
 - 3 points: "Forty"
 - 4 points: "Game"
-
-#### Deuce:
-When both players have 3 points each (40-40), the score is "deuce".
 
 #### Advantage:
 After deuce, the player who wins the next point has "advantage".
