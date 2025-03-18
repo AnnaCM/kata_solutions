@@ -1,18 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Tests\TennisTest;
+namespace Tests;
 
-use Kata\Tennis;
+use Kata\Exception\ValidationError;
+use Kata\Tennis\Game as TennisGame;
 use PHPUnit\Framework\TestCase;
 
 
-class TennisTest extends TestCase
+class TennisGameTest extends TestCase
 {
-    private Tennis $tennisClass;
+    private TennisGame $tennisGameClass;
 
     protected function setUp(): void
     {
-        $this->tennisClass = new Tennis();
+        $this->tennisGameClass = new TennisGame();
     }
 
     /**
@@ -23,7 +24,7 @@ class TennisTest extends TestCase
     {
         $this->assertSame(
             $expectedGameScore,
-            $this->tennisClass->reportScoreForCurrentGame($firstPlayerPoints, $secondPlayerPoints)
+            $this->tennisGameClass->reportScore($firstPlayerPoints, $secondPlayerPoints)
         );
     }
 
@@ -51,6 +52,27 @@ class TennisTest extends TestCase
 
             [4, 3, 'Advantage'],
             [3, 4, 'Advantage']
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidPointsProvider
+     */
+    public function invalidGameScore(int $firstPlayerPoints, int $secondPlayerPoints)
+    {
+        $this->expectException(ValidationError::class);
+        $this->expectExceptionMessage('Invalid points provided');
+
+        $this->tennisGameClass->reportScore($firstPlayerPoints, $secondPlayerPoints);
+    }
+
+    public function invalidPointsProvider(): array
+    {
+        return [
+            [4, 4],
+            [5, 4],
+            [5, 5],
         ];
     }
 }

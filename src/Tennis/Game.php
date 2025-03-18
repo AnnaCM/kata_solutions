@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Kata;
+namespace Kata\Tennis;
 
-class Tennis
+use Kata\Exception\ValidationError;
+
+class Game
 {
     const POINT_SCORE_MAP = [
         0 => 'Love',
@@ -11,8 +13,10 @@ class Tennis
         3 => 'Forty'
     ];
 
-    public function reportScoreForCurrentGame(int $firstPlayerPoints, int $secondPlayerPoints): string
+    public function reportScore(int $firstPlayerPoints, int $secondPlayerPoints): string
     {
+        $this->validatePoints($firstPlayerPoints, $secondPlayerPoints);
+
         if ($firstPlayerPoints == $secondPlayerPoints) {
             if ($firstPlayerPoints == 3) {
                 return 'Deuce';
@@ -29,5 +33,16 @@ class Tennis
         }
 
         return self::POINT_SCORE_MAP[$firstPlayerPoints] . '-' . self::POINT_SCORE_MAP[$secondPlayerPoints];
+    }
+
+    private function validatePoints(int $firstPlayerPoints, int $secondPlayerPoints)
+    {
+        if (
+            (($firstPlayerPoints == 4) && ($secondPlayerPoints == 4)) ||
+            $firstPlayerPoints > 4 ||
+            $secondPlayerPoints > 4
+        ) {
+            throw new ValidationError('Invalid points provided');
+        }
     }
 }
